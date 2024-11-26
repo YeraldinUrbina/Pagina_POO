@@ -1,0 +1,62 @@
+
+Body {
+    Font-family: Arial, sans-serif;
+    Line-height: 1.6;
+    Margin: 0;
+    Padding: 0;
+    Background: linear-gradient(120deg, #e0f7fa, #f1f8e9);
+    Color: #333;
+}
+
+Header {
+    Background: #00796b;
+    Color: white;
+    Padding: 1rem;
+    Text-align: center;
+}
+
+Nav ul {
+    List-style: none;
+    Padding: 0;
+    Margin: 0;
+    Display: flex;
+    Justify-content: center;
+    Gap: 1rem;
+}
+
+Nav ul li a {
+    Text-decoration: none;
+    Color: white;
+    Font-weight: bold;
+}
+
+Main {
+    Padding: 2rem;
+}
+
+h1, h2 {
+    Text-align: center;
+}
+
+Section {
+    Margin: 2rem 0;
+    Padding: 1.5rem;
+    Background: white;
+    Border-radius: 8px;
+    Box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+Pre {
+    Background: #f5f5f5;
+    Padding: 1rem;
+    Border-radius: 5px;
+    Overflow-x: auto;
+}
+
+Footer {
+    Text-align: center;
+    Padding: 1rem;
+    Background: #004d40;
+    Color: white;
+    Margin-top: 2rem;
+}

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POO Nivel Intermedio</title>
+    <link rel="stylesheet" href="POO.css">
+</head>
+<body>
+    <header>
+        <h1>Profundizando en POO (Programación Orientada a Objetos)</h1>
+
+        <nav>
+        <ul>
+            <li><a href="#herencia">Herencia</a></li>
+            <li><a href="#polimorfismo">Polimorfismo</a></li>
+            <li><a href="#interfaces">Interfaces</a></li>
+            <li><a href="#abstraccion">Abstracción</a></li>
+            <li><a href="#namespaces">Namespaces y Autoloading</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="herencia">
+        <h1>Herencia</h1>
+        <p>La herencia en PHP es un principio de la programación orientada a objetos 
+            que permite que una clase hija (o subclase) adquiera las propiedades y 
+            métodos de otra clase padre (o superclase). Esto facilita la reutilización
+            de código, ya que la clase hija puede acceder a los mismos comportamientos 
+            de la clase padre, y además, puede modificar o ampliar esos comportamientos
+            según sea necesario.</p>
+
+            <p>
+                <b>Concepto de herencia entre clases:</b> <br>
+                La herencia permite que una clase herede propiedades (atributos) y comportamientos 
+                (métodos) de otra clase. Esto facilita la reutilización de código y la creación de 
+                jerarquías de clases más especializadas.
+            </p>
+
+            <pre><code>
+                < ?php
+                // Clase base
+                class Animal {
+                    public function hacerSonido() {
+                        echo "El animal hace un sonido\n";
+                    }
+                }
+
+                // Clase derivada que hereda de Animal
+                class Perro extends Animal {
+                    public function hacerSonido() {
+                        echo "El perro ladra\n";
+                    }
+                }
+
+                // Crear un objeto de la clase Perro
+                $miPerro = new Perro();
+                $miPerro->hacerSonido();  // El perro ladra
+                ?>
+
+            </code></pre>
+
+            <p>
+                <p><strong>Uso de la palabra clave extends.</strong></p>
+                En PHP, la palabra clave <b>extends</b> se utiliza para crear una clase derivada (o subclase) a 
+                partir de una clase base (o superclase). Al utilizar extends, la subclase hereda las propiedades
+                 y métodos de la clase base, lo que significa que puede utilizar estos métodos y propiedades
+                 directamente o sobrescribirlos para personalizarlos. <br> <br>
+
+                <b>¿Por qué usar extends?</b> <br>
+                Se debe usar extends cuando: <br>
+
+                Se quiere reutilizar código de una clase base sin tener que reescribirlo en cada nueva clase.
+                Se necesita modificar o ampliar el comportamiento de una clase sin cambiar la clase original.
+                Se desea crear una jerarquía de clases donde las clases más generales se encuentran en la base y las más específicas se derivan de ellas.
+                Este concepto es clave para mantener el código limpio, modular y fácil de mantener.
+            </p>
+
+            <p><strong>Redefinición de métodos en clases hijas (override).</strong></p>
+            <p>
+                Override (Sobrescritura de Métodos) en Programación Orientada a Objetos
+                En programación orientada a objetos, el término override (sobrescritura) se refiere 
+                a la capacidad de modificar o redefinir un método heredado de una clase base en una 
+                clase derivada (subclase). Este concepto es clave en la herencia, ya que permite que una
+                subclase cambie el comportamiento de un método que ha heredado de la clase base, 
+                adaptándolo a sus necesidades. <br> <br>
+
+                <b>¿Por qué usar override?</b> <br> <br>
+                Se debe usar override cuando: <br>
+
+                Se necesita modificar el comportamiento de un método heredado para 
+                ajustarlo a las necesidades específicas de la clase hija.
+                La clase hija no quiere usar la implementación del método de la clase
+                padre, sino que desea proporcionar una nueva versión del mismo
+            </p>
+
+            <p>
+                <strong>La sobrescritura</strong> <br>
+                de métodos es útil cuando una subclase necesita un comportamiento similar al de la clase base,
+                pero con modificaciones específicas. En PHP, esto se logra al definir un método con el mismo 
+                nombre en la subclase que ya existe en la clase base <br> <br>
+
+                <strong>Parent en PHP</strong> <br>
+                En PHP, la palabra clave parent se utiliza para hacer referencia a la clase base o superclase desde una subclase. Esto permite acceder a métodos o propiedades de la clase base, incluso si están protegidos o públicos. parent es útil cuando deseas invocar un método 
+                de la clase base desde la subclase, sin necesidad de reescribirlo, o para acceder al constructor de la clase base.
+                Esto es parte del principio de herencia en la programación orientada a objetos (OOP), que permite reutilizar código y crear jerarquías
+                de clases. <br> <br>
+
+                <b>ejemplo</b> <br>
+            </p>
+            <pre><code>
+                < ?php
+                // Clase base (superclase)
+                class Animal {
+                    // Propiedad pública
+                    public $nombre;
+
+                    // Propiedad protegida
+                    protected $edad;
+
+                    // Propiedad privada
+                    private $tipo;
+
+                    // Constructor de la clase base
+                    public function __construct($nombre, $edad, $tipo) {
+                        $this->nombre = $nombre;
+                        $this->edad = $edad;
+                        $this->tipo = $tipo;
+                    }
+
+                    // Método público
+                    public function mostrarInformacion() {
+                        echo "Nombre: " . $this->nombre . "\n";
+                        echo "Edad: " . $this->edad . " años\n";
+                        echo "Tipo: " . $this->tipo . "\n";
+                    }
+
+                    // Método privado (solo accesible dentro de la clase)
+                    private function mostrarTipo() {
+                        echo "Tipo de animal: " . $this->tipo . "\n";
+                    }
+
+                    // Método protegido (accesible en clases derivadas)
+                    protected function mostrarEdad() {
+                        echo "Edad: " . $this->edad . " años\n";
+                    }
+                }
+
+                // Clase derivada (subclase) que hereda de Animal
+                class Perro extends Animal {
+                    // Método público que usa parent para acceder a la clase base
+                    public function mostrarDetalles() {
+                        // Llamar al método de la clase base usando parent
+                        parent::mostrarInformacion();
+
+                        // Llamar a un método protegido de la clase base usando parent
+                        parent::mostrarEdad();
+
+                        // No podemos acceder al método privado 'mostrarTipo()' directamente
+                        // parent::mostrarTipo(); // Esto causaría un error
+
+                        // Se puede acceder a propiedades protegidas de la clase base
+                        echo "El perro " . $this->nombre . " tiene " . $this->edad . " años.\n";
+                    }
+                }
+
+                // Crear un objeto de la clase Perro
+                $miPerro = new Perro("Rex", 5, "Canino");
+                $miPerro->mostrarDetalles();  // Mostrar detalles del perro
+
+                ?>
+            </code></pre>
+        </section>
+
+        <section id="polimorfismo">
+            <h1>Polimorfismo</h1>
+            <p>En programación orientada a objetos permite que un mismo método sea definido
+                en una clase base y luego sobrescrito o implementado por diferentes clases
+                hijas de manera diferente, proporcionando comportamientos específicos según 
+                el tipo de clase.
+            </p>
+            <pre><code>
+                class vehiculo {
+                    Public function moverse() {
+                    Return "El vehiculo se mueve";
+                    }
+                }
+
+                Class carro extends vehiculo {
+                    Public function moverse() {
+                    Return "El carro se mueve sobre sus cuatro llantas";
+                    }
+                }
+            </code></pre>
+            <p><strong>Sobrescritura(Overloading):</strong></p>
+            <p>
+                Ocurre cuando una clase hija redefine un método que ya está definido
+                en su clase padre, con el mismo nombre, esta técnica permite que la
+                clase hija implemente su propia versión del método, adaptándolo a sus
+                necesidades específicas.
+            </p>
+
+            <p><strong>Polimorfismo de Sobrecarga (Overloading):</strong></p>
+            <p>
+                La sobrecarga ocurre cuando una clase tiene múltiples métodos con
+                el mismo nombre, pero con diferentes parámetros (diferentes números 
+                o tipos de argumentos). Sin embargo, <b>PHP no admite sobrecarga de métodos
+                de manera nativa</b> como otros lenguajes como, Java o C++, En lugar de esto, 
+                PHP implementa un tipo dinámico de sobrecarga a través de los <b>métodos mágicos</b>,
+                como __call y __callStatic.
+            </p>
+
+           <pre><code>
+                class Calculadora {
+                    Public function __call($name, $arguments) {
+                        if ($name == 'sumar'){
+                            switch (count($arguments)){
+                                case 2:
+                                Return $arguments[0] + $arguments[1];
+
+                                case 3:
+                                Return $arguments[0] + $arguments[1] + $arguments[2];
+                            }
+                        }
+                        throw new Exception("Metodo $name no definido");
+                    }
+                }
+        
+                $calc = new Calculadora();
+                echo Scalc->sumar(2,3);  //Salida: 5
+                echo Scalc->sumar(1,2,3);  //Salida: 6
+            </code></pre>
+
+            <p><strong>Diferencias entre Sobrecarga y Sobrescritura en PHP</strong></p>
+
+            <img src="will poo 2.png" alt="poo">
+
+            <p>
+                En resumen, en PHP, <b>la sobrecarga se simula mediante métodos mágicos,
+                mientras que la sobrescritura se logra mediante herencia y redefinición
+                de métodos en subclases.</b>
+            </p>
+
+        </section>
+
+        <section id="interfaces">
+            <h1>Interfaces</h1>
+            <p> Las interfaces de objetos permiten crear código con el cual especificar qué métodos deben ser implementados por una clase, sin tener que definir cómo estos métodos son manipulados.
+
+                Las interfaces se definen de la misma manera que una clase, aunque reemplazando la palabra reservada class por la palabra reservada interface y sin que ninguno de sus métodos tenga su contenido definido.
+                
+                Todos los métodos declarados en una interfaz deben ser públicos, ya que ésta es la naturaleza de una interfaz. 
+            
+                <h4>Reglas importantes: </h4>
+                Todos los métodos de una interfaz son públicos por defecto. No puedes usar protected o private.
+                No puedes implementar métodos en la interfaz; solo declararlos.
+                Los métodos no pueden tener un cuerpo ({}).
+                <br>
+                <h4>Cómo implementar una interfaz en una clase</h4>
+                Para que una clase implemente una interfaz, usas la palabra clave implements. Luego, la clase debe definir todos los métodos de la interfaz.
+                <br>Ejemplo: <br>
+                Si tienes una interfaz Vehiculo, puedes definir métodos como acelerar() o frenar(), pero no especificar cómo funcionan. <br>
+                Cada clase que implemente esta interfaz deberá definir el comportamiento de esos métodos.
+                <br>
+            </p>
+            <pre><code>
+                interface Vehiculo {
+                    public function acelerar();
+                    public function frenar();
+                }
+                
+                class Coche implements Vehiculo {
+                    public function acelerar() {
+                        echo "El coche está acelerando.\n";
+                    }
+                
+                    public function frenar() {
+                        echo "El coche está frenando.\n";
+                    }
+                }
+            
+                $coche = new Coche();
+                $coche->acelerar();
+                $coche->frenar();
+                
+            </code></pre>
+            <p> <h4>Herencia en interfaces </h4>
+                Una interfaz puede heredar de otra interfaz. Esto se logra usando la palabra clave extends. <br>
+                Ejemplo:
+            </p>
+            <pre><code>
+                interface Vehiculo {
+                    public function encender();
+                }
+                
+                interface VehiculoAvanzado extends Vehiculo {
+                    public function activarPilotoAutomatico();
+                }
+                
+                class CocheAutonomo implements VehiculoAvanzado {
+                    public function encender() {
+                        echo "El coche se encendió.\n";
+                    }
+                
+                    public function activarPilotoAutomatico() {
+                        echo "Piloto automático activado.\n";
+                    }
+                }
+                
+                $coche = new CocheAutonomo();
+                $coche->encender();
+                $coche->activarPilotoAutomatico();
+                
+            </code></pre>
+
+            <p><strong>Implementación de múltiples interfaces en una clase.</strong></p>
+
+            <p>
+                En PHP, una clase puede implementar múltiples interfaces, lo que le permite 
+                adoptar los contratos de varios conjuntos de métodos diferentes. Esto es útil 
+                cuando una clase necesita comportarse de diversas maneras o realizar varias 
+                tareas que están definidas por diferentes interfaces. Al implementar varias 
+                interfaces, la clase está obligada a implementar todos los métodos declarados 
+                en cada interfaz. <br> <br>
+                <b>Sintaxis para implementar múltiples interfaces en PHP</b> <br>
+                Para implementar múltiples interfaces, simplemente se separan los nombres de las interfaces 
+                con una coma en la declaración de la clase. Es importante recordar que una clase debe
+                proporcionar una implementación para todos los métodos definidos por las interfaces que 
+                implementa.
+
+            </p>
+
+            <p>
+                <b>Ejemplo:</b> <br>
+                Supongamos que tenemos dos interfaces, Vehiculo y Electrico, y una clase CocheElectrico 
+                que implementa ambas interfaces. <br>
+                <b>1. Definir las interfaces</b> <br>
+                Primero, definimos dos interfaces: una para vehículos en general (Vehiculo),
+                y otra para vehículos eléctricos (Electrico).
+
+            </p>
+
+            <pre><code>
+                // Interfaz Vehiculo
+                interface Vehiculo {
+                    public function arrancar();
+                    public function detener();
+                }
+                
+                // Interfaz Electrico
+                interface Electrico {
+                    public function cargarBateria();
+                    public function obtenerAutonomia();
+                }
+            </code></pre>
+
+            <p>
+                <b>2. Implementar múltiples interfaces en una clase</b> <br>
+                Ahora, creamos una clase CocheElectrico que implementa ambas interfaces
+                (Vehiculo y Electrico). La clase debe definir todos los métodos que las interfaces
+                requieren.
+            </p>
+
+            <pre><code>
+                class CocheElectrico implements Vehiculo, Electrico {
+                    private $autonomia;
+                    
+                    public function __construct($autonomia) {
+                        $this->autonomia = $autonomia;
+                    }
+                
+                    // Implementación de los métodos de la interfaz Vehiculo
+                    public function arrancar() {
+                        echo "El coche eléctrico ha arrancado.\n";
+                    }
+                
+                    public function detener() {
+                        echo "El coche eléctrico se ha detenido.\n";
+                    }
+                
+                    // Implementación de los métodos de la interfaz Electrico
+                    public function cargarBateria() {
+                        echo "El coche eléctrico está cargando la batería.\n";
+                    }
+                
+                    public function obtenerAutonomia() {
+                        return $this->autonomia;
+                    }
+                }
+                
+            </code></pre>
+
+            <p>
+                <b>3. Usar la clase que implementa múltiples interfaces</b> <br>
+                Ahora podemos crear un objeto de la clase CocheElectrico y utilizar
+                tanto los métodos definidos en la interfaz Vehiculo como los de la
+                interfaz Electrico.
+            </p>
+
+            <pre><code>
+
+            // Crear un objeto de CocheElectrico
+            $coche = new CocheElectrico(250);
+
+            // Usar los métodos de la interfaz Vehiculo
+            $coche->arrancar();  // Salida: El coche eléctrico ha arrancado.
+            $coche->detener();   // Salida: El coche eléctrico se ha detenido.
+
+            // Usar los métodos de la interfaz Electrico
+            $coche->cargarBateria();  // Salida: El coche eléctrico está cargando la batería.
+            echo "Autonomía: " . $coche->obtenerAutonomia() . " km\n";  // Salida: Autonomía: 250 km
+            </code></pre> 
+            
+            <p>
+                <p><strong>Conclusión</strong></p>
+                En PHP, las clases pueden implementar múltiples interfaces, lo que 
+                les permite adoptar comportamientos de diferentes "contratos" y ser
+                más versátiles. Las interfaces son útiles para garantizar que las 
+                clases sigan un conjunto común de métodos y facilitar la reutilización 
+                del código. Implementar múltiples interfaces en una clase permite una 
+                mayor flexibilidad y modularidad en el diseño del sistema.
+            </p>
+        </section>
+
+        <section id="abstraccion">
+            <h1>Abstracción</h1>
+            <p>La abstracción es la técnica que permite representar objetos y acciones de forma simplificada, 
+            ocultando los detalles de implementación y centrando la atención en los conceptos relevantes 
+            para el problema en cuestión. En POO, la abstracción se logra mediante la creación de clases 
+            abstractas e interfaces.
+            <p>
+                <b>CLASES ABSTRACTAS Y MÉTODOS ABSTRACTOS. </b> <br> <br>
+
+                <b>1. Clases abstractas</b> <br>
+
+            </p>
+            Una clase abstracta es una clase que no puede ser instanciada directamente, sino que se
+            utiliza como base para otras clases derivadas. La definición de una clase abstracta incluye
+            métodos abstractos, que son aquellos métodos que no tienen implementación y deben ser definidos
+            en las clases. <br> Veamos un ejemplo:
+            </p>
+            <pre><code>
+                abstract class Animal {
+                    protected $nombre;
+                    public function __construct($nombre) {
+                    $this->nombre = $nombre;
+                    }
+                    abstract public function sonido();
+                }
+                class Perro extends Animal {
+                    public function sonido() {
+                    echo "Guau guau";
+                    }
+                }
+                $perro = new Perro("Fido");
+                $perro->sonido(); // muestra "Guau guau"
+
+            </code></pre>
+
+            <p>En este ejemplo, la clase Animal es abstracta y define el constructor de la clase y el método sonido como abstracto. 
+            La clase Perro hereda de Animal y define la implementación concreta del método sonido. Se crea un objeto de la clase
+            Perro y se llama al método sonido, que muestra el ladrido del perro.
+            </p>
+
+            <p>
+                <b>2. Métodos abstractos</b> <br>
+                son aquellos que se definen en una clase abstracta, 
+                pero no tienen una implementación en la clase misma. En su lugar,
+                se espera que las clases que hereden de la clase abstracta proporcionen
+                su propia implementación del método. <br>
+            </p>
+
+            <p>
+                <b>¿Cuándo usar abstracción?</b> <br>
+                Ocultar la complejidad: Permite a los desarrolladores usar las clases sin
+                preocuparse por su implementación interna. <br>
+                Fomentar la reutilización de código: Las clases abstractas y las interfaces
+                permiten que el código se pueda extender fácilmente sin modificar las clases
+                originales. <br>
+                Flexibilidad: Cambiar la implementación interna de una clase no afecta a las
+                clases que la utilizan, siempre y cuando mantengan la misma interfaz.
+
+            </p>
+
+            <p> <h4>Diferencia entre interfaces y clases abstractas</h4>
+                <b>Interfaz:</b> Se usan cuando deseas definir un conjunto de métodos 
+                que diferentes clases deben implementar, sin importar si tienen
+                o no una jerarquía común, lo que permite un mayor grado de 
+                flexibilidad. <br> <br>
+                <b>Clase abstracta:</b> Se utilizan cuando tienes una jerarquía de
+                clases y deseas proporcionar una funcionalidad base común, 
+                pero también quieres forzar la implementación de ciertos métodos
+                específicos.
+            </p>
+        </section>
+
+        <section id="namespaces">
+            <h1>Namespaces y Autoloading</h1>
+            <p><b>¿Qué son los Namespaces en PHP?</b> <br>
+                Un namespace en PHP es un contenedor lógico que organiza clases, interfaces, funciones y constantes para evitar conflictos de nombres. Son especialmente útiles en proyectos grandes o cuando se utilizan librerías externas.
+                Sin namespaces, si dos clases diferentes tienen el mismo nombre, habría un conflicto. Con namespaces, puedes usar nombres idénticos si están en diferentes "espacios". <br> <br>
+                
+                <b>¿Cómo se definen namespaces?</b> <br>
+                Se utilizan con la palabra clave namespace. Debe ser la primera declaración en un archivo PHP, seguida por el nombre del namespace.
+                </p>
+            <pre><code>
+                namespace MiProyecto;
+
+                Class Usuario {
+                    Public function saludar() {
+                    Echo “Hola desde MiProyecto!”;
+                    }
+                }
+            </code></pre>
+            <p>
+                <b>Explicacion paso a paso </b> <br>
+
+                1. < ?php<br>
+                Esto indica el inicio del script PHP. Es obligatorio para que el intérprete de PHP procese el código. <br>
+                2. namespace MiProyecto;<br>
+                •	Qué hace: Define un namespace llamado MiProyecto.<br>
+                o	Los namespaces organizan el código en contenedores lógicos.<br>
+                o	Esto ayuda a evitar conflictos si hay otras clases con el mismo nombre en otro proyecto.<br>
+                •	Por qué es útil:<br>
+                Si tienes múltiples proyectos, podrías tener varias clases con el mismo nombre (Usuario), lo que causaría errores. El namespace "etiqueta" las clases para diferenciarlas.<br>
+                Ejemplo de cómo afecta:
+                •	Con el namespace: La clase se llama internamente MiProyecto\Usuario.<br>
+                •	Sin el namespace: La clase se llama simplemente Usuario.<br>
+                3. class Usuario { ... }
+                •	Qué hace: Define una clase llamada Usuario.<br>
+                o	Una clase es un molde para crear objetos.<br>
+                o	Dentro de esta clase, puedes definir funciones y propiedades que pertenecerán a los objetos creados con ella.<br>
+                4. public function saludar() { ... }
+                •	Qué hace: Declara un método público llamado saludar.<br>
+                o	Un método es una función dentro de una clase que define un comportamiento.<br>
+                o	public significa que el método puede ser llamado desde fuera de la clase.<br>
+                5. return "Hola desde MiProyecto\\Usuario";<br>
+                •	Qué hace: Devuelve el texto "Hola desde MiProyecto\\Usuario".<br>
+                o	El doble backslash (\\) es necesario para que PHP lo trate como un carácter literal y no como un separador de namespaces.<br> <br>
+                <b>Usos del namespace </b> <br>
+
+                Para acceder a la clase, necesitas usar su nombre completamente calificado: <br> 
+
+            </p>
+
+            <pre><code>
+                < ?php
+                requiere 'Usuario';
+
+                $obj = new MiProyecto\Usuario();
+                echo $obj->saludar();
+            </code></pre>
+
+            <p>
+                <b>¿Por que usar namespace?</b> <br>
+
+                •	Evitar conflictos de nombres:<br>
+
+                Dos clases Usuario pueden coexistir si están en diferentes namespaces.<br>
+
+                •	Organización:<br>
+
+                Los namespaces permiten estructurar mejor los módulos o componentes del proyecto.<br> <br>
+
+                <b>Uso de la palabra clave “use” </b> <br>
+
+                Para evitar escribir el nombre completo del namespace cada vez, puedes usar la palabra clave use para importar un namespace o clase.<br>
+
+            </p>
+            <pre><code>
+                < ?php
+                namespace MiAplicacion;
+                use MiProyecto\Usuario;
+                
+                $obj = new Usuario();
+                echo $obj->saludar();
+            </code></pre> 
+            <p>
+                Si dos clases tienen el mismo nombre pero pertenecen a namespaces distintos, puedes usar alias:
+            </p>
+            <pre><code>
+                < ?php
+                use MiProyecto\Usuario as UsuarioProyecto();
+                use OtraLibreria\Usuario as UsuarioLibreria();
+
+                $Usuario1 = new UsuarioProyecto();
+                $Usuario2 = new UsuarioLibreria();
+            </code></pre> 
+            <br>
+            <p>
+                <b>¿Qué es el Autoloading en PHP?</b> <br>
+                El autoloading permite cargar automáticamente las clases cuando son necesarias, sin tener que incluirlas manualmente con require o include. Esto mejora la organización y el rendimiento, especialmente en proyectos grandes.<br>
+                <br>
+                <b>Cómo funciona el autoloading: </b> <br>
+                Cuando intentas instanciar una clase que aún no ha sido cargada, PHP busca un mecanismo de autoloading para localizar y cargar automáticamente el archivo que contiene esa clase.<br>
+                <br>
+                <b>Implementación de Autoloading: </b> <br>
+                Existen dos métodos principales para implementar el autoloading:<br> <br>
+                <b>a) spl_autoload_register() </b><br>
+                Este método te permite registrar una función personalizada para manejar el autoloading.<br>
+            </p>
+            <pre><code>
+                < ?php
+                spl_autoload_register(function ($clase)){
+                    $archivo = __DIR__ . '/' . str_replace('\\','/',$clase) . '.php';
+                    require $archivo;
+                }
+                }); 
+            </code></pre>
+
+            <p>
+                En este ejemplo: <br>
+                <b>•	$clase:</b> Es el nombre de la clase que PHP está intentando cargar. <br>
+                <b>•	str_replace('\\', '/', $clase):</b> Convierte el namespace en un path compatible con el sistema de archivos. <br>
+                <b>•	require $archivo:</b> Incluye el archivo correspondiente a la clase. <br> <br>
+
+                <b>Ventajas del Autoloading y Namespaces </b> <br>
+                <b>1.	Escalabilidad:</b> <br>
+
+                Facilitan la gestión de proyectos grandes y modulares. <br>
+
+                <b>2.	Evitar errores:</b> <br>
+
+                El autoloading se asegura de que todas las clases necesarias estén cargadas cuando se necesiten. <br>
+
+                <b>3.	Estandarización: </b><br>
+
+                Namespaces y autoloading son esenciales para seguir estándares modernos como PSR-4. <br>
+
+                <b>4.	Compatibilidad con librerías externas: </b><br>
+
+                Composer y los namespaces permiten integrar fácilmente librerías de terceros. <br> <br>
+
+
+                <b>Resumen práctico </b><br>
+                •	<b>Namespaces:</b> <br>
+                o	Organizan el código y evitan conflictos de nombres. <br>
+                o	Usan la palabra clave namespace y pueden importarse con use. <br>
+                •	<b>Autoloading:</b> <br>
+                o	Carga automáticamente las clases cuando son necesarias. <br>
+                o	Puede implementarse manualmente con spl_autoload_register o usando herramientas como Composer. <br>
+                Ambos conceptos son fundamentales en proyectos PHP orientados a objetos, especialmente en aplicaciones modernas que integran múltiples librerías y módulos. <br>
+
+            </p>
+        </section>
+
+        <section>
+            <h1>Proyecto de prueba</h1>
+            <p>
+                <b>Sistema de vehiculo </b> <br>
+                Crear una clase abstracta <b>vehiculo</b> con metodos y atributos básica como marca y modelo. <br>
+                Define clases hihjas como <b>carro</b> y <b>moto</b> que hereden de <b>vehiculo</b> <br>
+                Implementan una interfaz <b>motor</b> con un metodo <b>encender()</b> que cada vehiculo debe implementar.
+
+            </p>
+        </section>
+    </main>
+
+<footer>
+    <p>© 2024 - Clase de Programación Orientada a Objetos</p>
+</footer>
+</body>
+</html>
