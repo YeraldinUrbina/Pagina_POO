@@ -577,18 +577,7 @@
                 $obj = new Usuario();
                 echo $obj->saludar();
             </code></pre> 
-            <p>
-                Si dos clases tienen el mismo nombre pero pertenecen a namespaces distintos, puedes usar alias:
-            </p>
-            <pre><code>
-                < ?php
-                use MiProyecto\Usuario as UsuarioProyecto();
-                use OtraLibreria\Usuario as UsuarioLibreria();
-
-                $Usuario1 = new UsuarioProyecto();
-                $Usuario2 = new UsuarioLibreria();
-            </code></pre> 
-            <br>
+            
             <p>
                 <b>¿Qué es el Autoloading en PHP?</b> <br>
                 El autoloading permite cargar automáticamente las clases cuando son necesarias, sin tener que incluirlas manualmente con require o include. Esto mejora la organización y el rendimiento, especialmente en proyectos grandes.<br>
