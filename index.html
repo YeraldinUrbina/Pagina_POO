@@ -580,46 +580,67 @@
             
             <p>
                 <b>¿Qué es el Autoloading en PHP?</b> <br>
-                El autoloading permite cargar automáticamente las clases cuando son necesarias, sin tener que incluirlas manualmente con require o include. Esto mejora la organización y el rendimiento, especialmente en proyectos grandes.<br>
+                en programación orientada a objetos (POO) en PHP es una técnica que permite cargar clases de forma automática cuando son necesarias, sin necesidad de incluir manualmente los archivos que las contienen. Esto simplifica y organiza el código, evitando que el programador tenga que preocuparse por gestionar manualmente los include o require de cada clase.
                 <br>
-                <b>Cómo funciona el autoloading: </b> <br>
+                En lugar de llamar explícitamente a include 'mi_clase.php'; en cada archivo donde se utiliza una clase, el autoloading permite que PHP cargue automáticamente la clase cuando se instancie, lo que facilita la gestión de dependencias y mejora la legibilidad y mantenimiento del código.
+                <pre><code>
+                   < ?php
+                   // clases/MiClase.php
+                    class MiClase {
+                      public function saludo() {
+                      return "¡Hola desde MiClase!";
+                      }
+                    }; 
+                </code></pre>
+                <p> Luego en index.php, en lugar de usar require 'clases/MiClase.php';, puedes usar el autoloading para cargar la clase automáticamente cuando sea necesaria.</p>
                 
-                <b>a) spl_autoload_register() </b><br>
-                Este método te permite registrar una función personalizada para manejar el autoloading.<br>
+                <pre><code>
+                   < ?php
+                   // index.php
+                   // Función para cargar clases automáticamente
+
+                   function mi_autoloader($clase) {
+
+                      include 'clases/' . $clase . '.php'; // Suponiendo que las clases están en el directorio "clases"
+
+                   }
+
+
+
+                  // Registrar la función de autoloading
+
+                  spl_autoload_register('mi_autoloader');
+
+                  // Ahora, PHP cargará automáticamente MiClase.php cuando sea necesario
+
+                  $objeto = new MiClase();
+
+                  echo $objeto->saludo(); // Salida: ¡Hola desde MiClase!
+
+                    
+                </code></pre>
+            
+                <b>Cómo funciona el autoloading: </b> <br>
+                <b>1.	Definir la función de autoloading: </b>Primero defines una función que buscará la clase en el sistema de archivos. En este caso, la función mi_autoloader toma como argumento el nombre de la clase y construye la ruta del archivo que debe contener esa clase.
+                <br>
+                <b>2.	Registrar la función de autoloading: </b>Luego, usas spl_autoload_register() para registrar esta función, indicando a PHP que debe usarla cuando encuentre una clase que no haya sido definida aún.
+                <br>
+                <b>3.	Cargar la clase: </b>En el momento que instancias un objeto de la clase MiClase, PHP llama automáticamente a la función registrada, que incluye el archivo correspondiente y define la clase, lo que permite crear el objeto sin haberla incluido explícitamente.
+                <br>
+                <b>Ventajas del autoloading:</b>
+                <br> <br>
+                <b>1.	Evita la carga manual de archivos: </b>No tienes que usar include o require cada vez que necesites una clase. El sistema se encarga de cargar las clases cuando sea necesario.
+                <br>
+                <b>2.	Mejora el rendimiento: </b>Si el autoloading está bien configurado, las clases solo se cargan cuando realmente se utilizan, lo que puede optimizar la carga de recursos.
+                <br>
+                <b>3.	Mantiene el código limpio y organizado: </b>Facilita la organización del código, especialmente en proyectos grandes, donde las clases pueden estar distribuidas en varios archivos.
+                <br>
+                <b>4.	Facilita el uso de compositores y frameworks: </b>Herramientas como Composer (en el ecosistema PHP) utilizan el autoloading para gestionar dependencias de manera eficiente. Esto es útil en frameworks como Laravel, Symfony, etc.
+
+                <br> 
+                
             </p>
-            <pre><code>
-                < ?php
-                spl_autoload_register(function ($clase)){
-                    $archivo = __DIR__ . '/' . str_replace('\\','/',$clase) . '.php';
-                    require $archivo;
-                }
-                }); 
-            </code></pre>
-
             <p>
-                En este ejemplo: <br>
-                <b>•	$clase:</b> Es el nombre de la clase que PHP está intentando cargar. <br>
-                <b>•	str_replace('\\', '/', $clase):</b> Convierte el namespace en un path compatible con el sistema de archivos. <br>
-                <b>•	require $archivo:</b> Incluye el archivo correspondiente a la clase. <br> <br>
-
-                <b>Ventajas del Autoloading y Namespaces </b> <br>
-                <b>1.	Escalabilidad:</b> <br>
-
-                Facilitan la gestión de proyectos grandes y modulares. <br>
-
-                <b>2.	Evitar errores:</b> <br>
-
-                El autoloading se asegura de que todas las clases necesarias estén cargadas cuando se necesiten. <br>
-
-                <b>3.	Estandarización: </b><br>
-
-                Namespaces y autoloading son esenciales para seguir estándares modernos como PSR-4. <br>
-
-                <b>4.	Compatibilidad con librerías externas: </b><br>
-
-                Composer y los namespaces permiten integrar fácilmente librerías de terceros. <br> <br>
-
-
                 <b>Resumen práctico </b><br>
                 •	<b>Namespaces:</b> <br>
                 o	Organizan el código y evitan conflictos de nombres. <br>
