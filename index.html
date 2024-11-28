@@ -605,8 +605,6 @@
 
                    }
 
-
-
                   // Registrar la función de autoloading
 
                   spl_autoload_register('mi_autoloader');
@@ -645,23 +643,21 @@
             </p>
 
             <p>
-                 <b>Cuándo usar autoloading y cuándo no  </b> <br> <br>
+                 <b>Cuándo usar autoloading y cuándo no  </b> <br> 
                  <b>Cuándo usarlo: </b> <br>
                 <b>•	Proyectos grandes: </b> Si tu aplicación tiene muchas clases distribuidas en varias carpetas, usar autoloading simplifica la gestión de las dependencias entre archivos.
                 <br>
                 <b>•	Frameworks y bibliotecas: </b> La mayoría de los frameworks modernos de PHP (como Laravel, Symfony, etc.) usan autoloading porque ayuda a gestionar grandes cantidades de clases de manera eficiente.
                 <br>
                 <b>•	Mantener el código limpio: </b> Si quieres evitar la redundancia de require y include, el autoloading es una excelente opción.
-                <br> <br>
+                <br> 
                  <b>Cuándo no usarlo: </b> <br>
                 •	Proyectos pequeños o scripts simples: Si estás trabajando en algo muy pequeño, donde el número de clases es mínimo, puede que no sea necesario implementar autoloading. Usar include o require directamente puede ser suficiente.
                 <br>
                 •	Cuando no puedes controlar las rutas de los archivos: Si estás trabajando con una estructura de carpetas muy compleja o no tienes control sobre cómo se organizan las clases, puede que el autoloading no sea adecuado.
-                <br> <br>
-                
-                 <b>Conclusión </b>
+                <br> 
+                <b>Conclusión </b>
                 El autoloading es una herramienta poderosa para gestionar tus clases en proyectos PHP de manera más eficiente. Al automatizar la carga de clases, se ahorra tiempo, se reduce el código repetitivo y se mejora el rendimiento y mantenimiento. Sin embargo, su uso es más adecuado en proyectos más grandes y escalables, donde gestionar manualmente las dependencias sería complicado.
-              
             </p>
             <br> 
             <p>
