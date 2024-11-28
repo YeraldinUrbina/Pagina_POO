@@ -617,16 +617,16 @@
 
                     
                 </code></pre>
-            
+                <br>
                 <strong>Cómo funciona el autoloading: </strong> <br>
                 <b>1.	Definir la función de autoloading: </b>Primero defines una función que buscará la clase en el sistema de archivos. En este caso, la función mi_autoloader toma como argumento el nombre de la clase y construye la ruta del archivo que debe contener esa clase.
                 <br>
                 <b>2.	Registrar la función de autoloading: </b>Luego, usas spl_autoload_register() para registrar esta función, indicando a PHP que debe usarla cuando encuentre una clase que no haya sido definida aún.
                 <br>
                 <b>3.	Cargar la clase: </b>En el momento que instancias un objeto de la clase MiClase, PHP llama automáticamente a la función registrada, que incluye el archivo correspondiente y define la clase, lo que permite crear el objeto sin haberla incluido explícitamente.
-                <br>
-                <b>Ventajas del autoloading:</b>
                 <br> <br>
+                <b>Ventajas del autoloading:</b>
+                <br> 
                 <b>1.	Evita la carga manual de archivos: </b>No tienes que usar include o require cada vez que necesites una clase. El sistema se encarga de cargar las clases cuando sea necesario.
                 <br>
                 <b>2.	Mejora el rendimiento: </b>Si el autoloading está bien configurado, las clases solo se cargan cuando realmente se utilizan, lo que puede optimizar la carga de recursos.
@@ -643,7 +643,7 @@
             </p>
 
             <p>
-                 <b>Cuándo usar autoloading y cuándo no  </b> <br> 
+                 <b>Cuándo usar autoloading y cuándo no  </b> <br> <br>
                  <b>Cuándo usarlo: </b> <br>
                 <b>•	Proyectos grandes: </b> Si tu aplicación tiene muchas clases distribuidas en varias carpetas, usar autoloading simplifica la gestión de las dependencias entre archivos.
                 <br>
@@ -655,8 +655,8 @@
                 •	Proyectos pequeños o scripts simples: Si estás trabajando en algo muy pequeño, donde el número de clases es mínimo, puede que no sea necesario implementar autoloading. Usar include o require directamente puede ser suficiente.
                 <br>
                 •	Cuando no puedes controlar las rutas de los archivos: Si estás trabajando con una estructura de carpetas muy compleja o no tienes control sobre cómo se organizan las clases, puede que el autoloading no sea adecuado.
-                <br> 
-                <b>Conclusión </b>
+                <br> <br>
+                <b>Conclusión </b> <br>
                 El autoloading es una herramienta poderosa para gestionar tus clases en proyectos PHP de manera más eficiente. Al automatizar la carga de clases, se ahorra tiempo, se reduce el código repetitivo y se mejora el rendimiento y mantenimiento. Sin embargo, su uso es más adecuado en proyectos más grandes y escalables, donde gestionar manualmente las dependencias sería complicado.
             </p>
             <br> 
